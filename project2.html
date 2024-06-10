@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Jockes</title>
+</head>
+
+<style>
+   
+    body {
+        background-color: #64a9c9;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 10;
+    }
+
+   
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+   
+    h3 {
+        color: navy;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    #joke {
+        font-size: 20px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        min-height: 50px;
+        color: #5e6e0f;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    #jokebtn {
+        cursor: pointer;
+        background-color: #b46fc9;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    #jokebtn:hover {
+        background-color: #7878C1;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h3>Best Jockes To Make Your Best Day</h3>
+        <div id="joke" class="jock">Awsome jock is loading....</div>
+        <button id="jokebtn" class="btn">Next one</button>
+    </div>
+<script>
+// GET https://icanhazdadjoke.com/
+
+const jokes=document.querySelector('#joke');
+const jokebtn =document.querySelector('#jokebtn');
+
+const generateJokes = () =>{
+const setHeader={
+    headers:{
+        Accept:"application/json"
+    }
+}
+
+    fetch(' https://icanhazdadjoke.com/', setHeader)
+    .then((res) => res.json() )
+    .then((data) => {
+        jokes.innerHTML=data.joke;
+    }).catch((error) => {
+        console.log(error);
+    })   
+}
+jokebtn.addEventListener('click',generateJokes);
+
+</script>
+</body>
+</html>

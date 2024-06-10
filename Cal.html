@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #a6bfd4;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .center {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        #app_name {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border: none;
+            background-color: #f0f0f0;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        #display_answer {
+            text-align: right;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            border: 1px solid #e4baba;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .layer1, .layer2 {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .main_num, .oper {
+            font-size: 1.2rem;
+            padding: 15px;
+            border: 1px solid #000;
+            border-radius: 5px;
+            background-color: #000;
+            color: white;
+            width: 22%;
+            box-sizing: border-box;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px #333;
+        }
+        .main_num:hover, .oper:hover {
+            background-color: #333;
+        }
+        .main_num:active, .oper:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px #333;
+        }
+        #clearbutton, #equalsbutton {
+            background-color: #000;
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 48%;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px #333;
+        }
+        #clearbutton:hover, #equalsbutton:hover {
+            background-color: #333;
+        }
+        #clearbutton:active, #equalsbutton:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <form name="calcy">
+            <input type="text" name="" value="Calculator" id="app_name" readonly>
+            <input type="text" name="ans" id="display_answer" readonly>
+            <div class="layer2">
+                <input type="button" value="C" id="clearbutton" onclick="clearDisplay()">
+                <input type="button" value="=" id="equalsbutton" onclick="calculate()">
+            </div>
+            <div class="layer1">
+                <input type="button" class="main_num" value="7" onclick="appendNumber('7')">
+                <input type="button" class="main_num" value="8" onclick="appendNumber('8')">
+                <input type="button" class="main_num" value="9" onclick="appendNumber('9')">
+                <input type="button" class="oper" value="*" onclick="appendOperator('*')">
+            </div>
+            <div class="layer1">
+                <input type="button" class="main_num" value="4" onclick="appendNumber('4')">
+                <input type="button" class="main_num" value="5" onclick="appendNumber('5')">
+                <input type="button" class="main_num" value="6" onclick="appendNumber('6')">
+                <input type="button" class="oper" value="-" onclick="appendOperator('-')">
+            </div>
+            <div class="layer1">
+                <input type="button" class="main_num" value="1" onclick="appendNumber('1')">
+                <input type="button" class="main_num" value="2" onclick="appendNumber('2')">
+                <input type="button" class="main_num" value="3" onclick="appendNumber('3')">
+                <input type="button" class="oper" value="+" onclick="appendOperator('+')">
+            </div>
+            <div class="layer1">
+                <input type="button" class="main_num" value="." onclick="appendNumber('.')">
+                <input type="button" class="main_num" value="0" onclick="appendNumber('0')">
+                <input type="button" class="main_num" value="%" onclick="appendOperator('%')">
+                <input type="button" class="oper" value="/" onclick="appendOperator('/')">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function appendNumber(number) {
+            document.calcy.ans.value += number;
+        }
+
+        function appendOperator(operator) {
+            document.calcy.ans.value += operator;
+        }
+
+        function clearDisplay() {
+            document.calcy.ans.value = '';
+        }
+
+        function calculate() {
+            try {
+                document.calcy.ans.value = eval(document.calcy.ans.value);
+            } catch (error) {
+                document.calcy.ans.value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>

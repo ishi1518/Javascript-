@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tthermometer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/webfonts/fa-solid-900.woff2');
+
+        body {
+            background-color: rgb(121, 166, 226);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .outerDiv {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .innerDiv {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            
+            box-shadow: 0 0 20px  rgb(206, 8, 8);
+        }
+
+        .main-heading {
+            font-family: "Lucida Console", "Courier New", monospace;
+            font-weight: 900;
+            font-size: 2.5em;
+            color: rgb(105, 97, 209);
+        }
+
+        .fa {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="outerDiv">
+        <div class="innerDiv">
+            <h1 class="main-heading">I am thermometer <span id="temp" class="fa"></span></h1>
+        </div>
+    </div>
+
+    <script>
+        const tempLoad = () => {
+            let temp = document.getElementById('temp');
+            temp.className = 'fa fa-temperature-low'; 
+            
+
+            setTimeout(() => {
+                temp.className = 'fa fa-temperature-high'; 
+                temp.style.color = "blue";
+            }, 1000);
+
+            setTimeout(() => {
+                temp.className = 'fa fa-thermometer-empty'; 
+            }, 2000);
+
+            setTimeout(() => {
+                temp.className = 'fa fa-thermometer-half'; 
+            }, 3000);
+
+            setTimeout(() => {
+                temp.className = 'fa fa-thermometer-full';  
+                temp.style.color = "black";
+            }, 4000);
+        }
+
+        tempLoad();
+        setInterval(tempLoad, 5000);    
+    </script>
+</body>
+</html>
