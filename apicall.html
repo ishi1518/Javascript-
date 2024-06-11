@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API CALL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 60%;
+            margin: auto;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #be5959;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .search-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 14px;
+            width: 300px;
+        }
+
+        .search-button {
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search by Title">
+        <button class="search-button" onclick="searchData()">Search</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Body</th>
+                <th>Tag</th>
+                <th>Reactions</th>
+                <th>Like</th>
+                <th>Dislike</th>
+                <th>Views</th>
+                <th>UserId</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="data-output">
+            
+        </tbody>
+    </table>
+
+    <script>
+        let records = [];
+
+        function loaddata() {
+            fetch("records.json")
+                .then(response => response.json())
+                .then(data => {
+                    records = data;
+                    displayRecords(records);
+                })
+                .catch(error => console.error("Error fetching data:", error));
+        }
+
+        function displayRecords(records) {
+            const placeholder = document.querySelector("#data-output");
+            const rows = records.map(record => `
+                <tr>
+                    <td>${record.id}</td>
+                    <td>${record.title}</td>
+                    <td>${record.body}</td>
+                    <td>${record.tags}</td>
+                    <td>${record.reactions}</td>
+                    <td>${record.like}</td>
+                    <td>${record.dislikes}</td>
+                    <td>${record.views}</td>
+                    <td>${record.userId}</td>
+                    <td><button onclick="delRecord(this)">Delete</button></td>
+                </tr>
+            `).join("");
+            placeholder.innerHTML = rows;
+        }
+
+        function searchData() {
+            const query = document.querySelector("#search-input").value.toLowerCase();
+            const filteredRecords = records.filter(record => record.title.toLowerCase().includes(query));
+            displayRecords(filteredRecords);
+        }
+
+        function delRecord(button) {
+            const row = button.closest('tr');
+            row.remove();
+        }
+
+        loaddata();
+    </script>
+
+</body>
+
+</html>
